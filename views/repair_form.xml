@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="menu_repair_form" model="website.menu">
+        <field name="name">Repair Form</field>
+        <field name="url">/repair/forms</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">60</field>
+
+    </record>
+
+    <template id="create_repair_form" name="Create Repair Enquiry">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <div class="container">
+                        <form role="form" action="/create/repair" method="POST">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="form-group">
+                                <label for="description" class="control-label">Repair Description</label>
+                                <input type="text" name="description" t_att_value="description" id="description"
+                                       class="form-control" placeholder="Description" required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="product_id" class="control-label">Product to Repair</label>
+                                <select name="product_id" class="form-control link-style">
+                                    <t t-foreach="product_id" t-as="i">
+                                        <option t-esc="i.name" t-att-value="i.id"/>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="product_qty" class="control-label">Product Quantity</label>
+                                <input type="text" name="product_qty" t_att_value="product_qty" id="product_qty"
+                                       class="form-control" placeholder="In digits" required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="customer" class="control-label">Customer</label>
+                                <select name="partner_id" class="form-control link-style">
+                                    <t t-foreach="partner_id" t-as="customer">
+                                        <option t-esc="customer.name" t-att-value="customer.id"/>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="location" class="control-label">Location</label>
+                                <select name="location_id" class="form-control link-style">
+                                    <t t-foreach="location_id" t-as="loc">
+                                        <option t-esc="loc.name" t-att-value="loc.id"/>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="invoice_method" class="control-label">Invoice Method</label>
+                                <select class="form-control" name="invoice_method">
+                                   <option t-attf-value="none">No invoice</option>
+                                   <option t-attf-value="b4repair">Before Repair</option>
+                                   <option t-attf-value="after_repair">After Repair</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="address_id" class="control-label">Delivery Address</label>
+                                <select name="address_id" class="form-control link-style">
+                                    <t t-foreach="address_id" t-as="del">
+                                        <option t-esc="del.name" t-att-value="del.id"/>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="product_uom" class="control-label">Unit Of Measure</label>
+                                <select name="product_uom" class="form-control link-style">
+                                    <t t-foreach="product_uom" t-as="pro">
+                                        <option t-esc="pro.name" t-att-value="pro.id"/>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="scheduled_date" class="control-label">Scheduled Date</label>
+                                <input type="date" name="schedule_date" t_att_value="date" id="scheduled_date"
+                                       class="form-control o_website_form_input o_website_form_date"
+                                       required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="warranty_expiry" class="control-label">Warranty Expiration</label>
+                                <input type="date" name="guarantee_limit" t_att_value="date" id="warranty_expiry"
+                                       class="form-control o_website_form_input o_website_form_date"
+                                       required="required"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="sales" class="control-label">Sale Order</label>
+                                <select name="sale_order_id" class="form-control link-style">
+                                    <t t-foreach="sale_order_id" t-as="sale">
+                                        <option t-esc="sale.name" t-att-value="sale.id"/>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="clearfix oe_login_buttons">
+                                <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
