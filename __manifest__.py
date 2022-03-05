@@ -14,7 +14,8 @@ This is a simple repair webpage module which saves the data's entered by the use
     'website': 'www.test.com',
     'depends': ['web', 'repair'],
     'data': ['views/template.xml',
-             'views/repair_form.xml'
+             'views/repair_form.xml',
+             'views/test.xml',
     ],
     'qweb': [],
     'demo': [],
